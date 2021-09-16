@@ -593,7 +593,7 @@
     initData: function(){
       const thisApp = this;
 
-      thisApp.data = {};
+      /*thisApp.data = {};
       const url = settings.db.url + '/' + settings.db.products;
 
       fetch(url)
@@ -608,7 +608,8 @@
           //execute initMenu method
           thisApp.initMenu();
         });
-      console.log('thisApp.data', JSON.stringify(thisApp.data));
+      console.log('thisApp.data', JSON.stringify(thisApp.data));*/
+      thisApp.data = dataSource;
     },
 
     initMenu: function(){
@@ -631,6 +632,7 @@
       //console.log('templates:', templates);
 
       thisApp.initData();
+      thisApp.initMenu();
       thisApp.initCart();
     },
     initCart: function(){
