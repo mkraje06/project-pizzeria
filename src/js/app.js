@@ -62,3 +62,4 @@ const app = {
 };
 
 app.init();
+
