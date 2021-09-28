@@ -1,7 +1,7 @@
 import {settings, select, classNames} from './settings.js';
-import Product from './components/Product.js';
-import Cart from './components/Cart.js';
-import Booking from './components/Booking.js';
+import {Product} from './components/Product.js';
+import {Cart} from './components/Cart.js';
+import {Booking} from './components/Booking.js';
 
 const app = {
   initData: function(){
@@ -60,10 +60,9 @@ const app = {
         window.location.hash = '#/' + id;
 
       });
-
-  },
+  }
   
-  activatePagee: function(pageID){
+  activatePagee: function (pageID){
     const thisApp = this;
 
     /*add class "active" to matching pages, remove from non-matching */
@@ -94,7 +93,7 @@ for(let page of thisApp.pages){
       new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
     }
 
-  },
+  }
 
   init: function(){
     const thisApp = this;
@@ -108,7 +107,7 @@ for(let page of thisApp.pages){
     thisApp.initCart();
     thisApp.initPages();
     thisApp.initBooking();
-  },
+  }
 
   
   initCart: function(){
@@ -133,4 +132,3 @@ for(let page of thisApp.pages){
 };
 
 app.init();
-
