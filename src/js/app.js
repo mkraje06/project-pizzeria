@@ -1,7 +1,7 @@
 import {settings, select, classNames} from './settings.js';
-import {Product} from './components/Product.js';
-import {Cart} from './components/Cart.js';
-import {Booking} from './components/Booking.js';
+import Product from './components/Product.js';
+import Cart from './components/Cart.js';
+import Booking from './components/Booking.js';
 
 const app = {
   initData: function(){
@@ -25,11 +25,11 @@ const app = {
 
   },
 
-  initPages: function(){
+  initPages: function() {
     const thisApp = this;
+
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
-
 
     const idFromHash = window.location.hash.replace('#/', '');
     /*console.log('idFromHash', idFromHash); */
@@ -43,7 +43,7 @@ const app = {
       }
     }
 
-    thisAp.activatePagee(thisApp.pages[0].id);
+    thisApp.activatePage(pageMatchningHash);
 
     for(let link of thisApp.navLinks){
       link.addEventListener('click', function(event){
@@ -60,29 +60,27 @@ const app = {
         window.location.hash = '#/' + id;
 
       });
-  }
+    }
+  },
   
-  activatePagee: function (pageID){
+  activatePage: function (pageId) {
     const thisApp = this;
 
     /*add class "active" to matching pages, remove from non-matching */
     
-for(let page of thisApp.pages){
-  
-  page.classList.toggle(classNames.pages.active,page.id == pageId);
-}
+    for(let page of thisApp.pages) { 
+      page.classList.toggle(classNames.pages.active,page.id == pageId);
+    }
 
     /*add class "active" to matching links, remove from non-matching */
-    
-  for(let link of thisApp.navLinks){
-  
+    for(let link of thisApp.navLinks){
       link.classList.toggle(
         classNames.nav.active,
         link.getAttribute('href') == '#' + pageId
-    );
-  }
+      );
+    }
 
-}
+  },
 
   initMenu: function(){
     const thisApp = this;
@@ -93,7 +91,7 @@ for(let page of thisApp.pages){
       new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
     }
 
-  }
+  },
 
   init: function(){
     const thisApp = this;
@@ -107,7 +105,7 @@ for(let page of thisApp.pages){
     thisApp.initCart();
     thisApp.initPages();
     thisApp.initBooking();
-  }
+  },
 
   
   initCart: function(){
@@ -121,7 +119,7 @@ for(let page of thisApp.pages){
     thisApp.productList.addEventListener('add-to-cart', function(event){
       app.cart.add(event.detail.product);
     });
-  }
+  },
 
   initBooking: function() {
     const thisApp = this;
@@ -129,6 +127,7 @@ for(let page of thisApp.pages){
     const bookingWidget = document.querySelector(select.containerOf.booking);
     thisApp.booking = new Booking(bookingWidget);
 
+  }
 };
 
 app.init();

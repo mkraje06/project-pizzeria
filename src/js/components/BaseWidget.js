@@ -1,65 +1,62 @@
 class BaseWidget {
-    constructor (wrapperElement, initialValue){
-      const thisWidget = this;
-  
-      thisWidget.dom = {};
-      thisWidget.dom.wrapper = wrapperElement;
+  constructor (wrapperElement, initialValue){
+    const thisWidget = this;
 
-      thisWidget.value = initialValue;
+    thisWidget.dom = {};
+    thisWidget.dom.wrapper = wrapperElement;
 
-      get value (){
-        const thisWidget = this;
+    thisWidget.correctValue = initialValue;
+  }
+
+  get value (){
+    const thisWidget = this;
+
+    return thisWidget.correctValue;
+  }
     
-        return thisWidget.correctValue;
-      }
+  set value(value){
+    const thisWidget = this;
+
+    const newValue = thisWidget.parseValue(value);
+
+
+    if(newValue != thisWidget.correctValue && thisWidget.isValid(newValue)){
+      thisWidget.correctValue = newValue;
+      thisWidget.announce();
     }
-    
-      set value(value){
-        const thisWidget = this;
-    
-        const newValue = thisWidget.parseValue(value);
-    
-    
-        if(newValue != thisWidget.correctValue && thisWidget.isValid(newValue)){
-          thisWidget.correctValue = newValue;
-          thisWidget.announce();
-        }
-        thisWidget.renderValue();
-    
-      }
-    
-      setValue(value){
-        const thisWidget = this;
-    
-        thisWidget.value = value;
-      }
-    
-      parseValue(value){
-        return parseInt(value);
-      }
-    
-      isValid(value){
-        return !isNaN(value);
-      }
+    thisWidget.renderValue();
 
-      renderValue(){
-        const thisWidget = this;
+  }
     
-        thisWidget.dom.wrapper.innerHTML = thisWidget.value;
-      }
-    
-      announce(){
-        const thisWidget = this;
-    
-        const event = new CustomEvent ('updated', {
-          bubbles: true
-        });
-    
-        thisWidget.dom.wrapper.dispatchEvent(event);
-    
+  setValue(value){
+    const thisWidget = this;
 
+    thisWidget.value = value;
+  }
 
-    }
+  parseValue(value){
+    return parseInt(value);
+  }
+
+  isValid(value){
+    return !isNaN(value);
+  }
+
+  renderValue(){
+    const thisWidget = this;
+
+    thisWidget.dom.wrapper.innerHTML = thisWidget.value;
+  }
+
+  announce(){
+    const thisWidget = this;
+
+    const event = new CustomEvent ('updated', {
+      bubbles: true
+    });
+
+    thisWidget.dom.wrapper.dispatchEvent(event);
+  }
 }
 
 

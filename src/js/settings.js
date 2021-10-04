@@ -5,22 +5,14 @@ export const select = {
     bookingWidget: '#template-booking-widget',
     widgets: {
       datePicker: {
-          wrapper: '.date-picker',
-          input: `input[name="date"]`,
+        wrapper: '.date-picker',
+        input: `input[name="date"]`,
       },
       hourPicker: {
-          wrapper: '.hour-picker',
-          input: 'input[type="range"]',
-          output: '.output',
+        wrapper: '.hour-picker',
+        input: 'input[type="range"]',
+        output: '.output',
       },
-  },
-  booking: {
-      peopleAmount: '.people-amount',
-      hoursAmount: '.hours-amount',
-      tables: '.floor-plan .table',
-  },
-  nav: {
-      links: '.main-nav a',
     },
   },
   containerOf: {
@@ -48,6 +40,15 @@ export const select = {
       linkDecrease: 'a[href="#less"]',
       linkIncrease: 'a[href="#more"]',
     },
+    datePicker: {
+      wrapper: '.date-picker',
+      input: `input[name="date"]`,
+    },
+    hourPicker: {
+      wrapper: '.hour-picker',
+      input: 'input[type="range"]',
+      output: '.output',
+    },
   },
   cart: {
     productList: '.cart__order-summary',
@@ -67,6 +68,15 @@ export const select = {
     edit: '[href="#edit"]',
     remove: '[href="#remove"]',
   },
+  booking: {
+    peopleAmount: '.people-amount',
+    hoursAmount: '.hours-amount',
+    tables: '.floor-plan .table',
+    floorPlan: '.floor-plan'
+  },
+  nav: {
+    links: '.main-nav a',
+  },
 };
 
 export const classNames = {
@@ -80,13 +90,13 @@ export const classNames = {
   booking: {
     loading: 'loading',
     tableBooked: 'booked',
-},
-nav: {
+  },
+  nav: {
     active: 'active',
-},
-pages: {
+  },
+  pages: {
     active: 'active',
-}
+  }
 
 };
 
@@ -96,35 +106,29 @@ export  const settings = {
     defaultMin: 0,
     defaultMax: 10,
   },
+  hours: {
+    open: 12,
+    close: 24,
+  },
   cart: {
     defaultDeliveryFee: 20,
+  },
+  datePicker: {
+    maxDaysInFuture: 14,
+  },
+  booking: {
+    tableIdAttribute: 'data-table',
   },
   db: {
     url: '//localhost:3131',
     products: 'products',
     orders: 'orders',
-    hours: {
-      open: 12,
-      close: 24,
-  },
-  datePicker: {
-      maxDaysInFuture: 14,
-  },
-  booking: {
-      tableIdAttribute: 'data-table',
-  },
-  db: {
-      ...
-      url: '//localhost:3131',
-      product: 'product',
-      order: 'order',
-      booking: 'booking',
-      event: 'event',
-      dateStartParamKey: 'date_gte',
-      dateEndParamKey: 'date_lte',
-      notRepeatParam: 'repeat=false',
-      repeatParam: 'repeat_ne=false',
-    }
+    bookings: 'bookings',
+    events: 'events',
+    dateStartParamKey: 'date_gte',
+    dateEndParamKey: 'date_lte',
+    notRepeatParam: 'repeat=false',
+    repeatParam: 'repeat_ne=false',
   },
 };
 
