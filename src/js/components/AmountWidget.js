@@ -1,77 +1,63 @@
 import { select, settings } from '../settings.js';
 import BaseWidget from './BaseWidget.js';
 
+class AmountWidget extends BaseWidget {  // klasa AmountWidget jest rozszerzeniem klasy BaseWidget
+  constructor(element) {                // pierwsza rzecz jaką robimy w konstruktorze klasy dziedziczącej jest wywołanie konstruktora klasy nadrzędnej super();
 
-class AmountWidget extends BaseWidget {
-  constructor(element) {
-    super(element, settings.amountWidget.defaultValue);
+    super(element, settings.amountWidget.defaultValue); // oznacza konstruktor klasy BaseWidget
 
     const thisWidget = this;
+
+    //console.log('AmountWidget: ', thisWidget);
+    //console.log('constructor arguments: ', element);
+
 
     thisWidget.getElements(element);
-    
     thisWidget.initActions();
-
-    //console.log('AmountWidget:', thisWidget);
-    //console.log('constructor arguments:', element);
+    /*thisWidget.setValue(thisWidget.dom.input.value);  // usuwamy bo tym zajmie się teraz klasa BaseWidget
+    thisWidget.setValue(settings.amountWidget.defaultValue);*/  // usuwamy bo tym zajmie się teraz klasa BaseWidget
   }
 
-  getElements(){
+  getElements() {
     const thisWidget = this;
 
-    thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.amount.input);
+    /*thisWidget.dom.wrapper = element;*/ // usuwamy bo tym zajmie się teraz klasa BaseWidget
+    thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.amount.input); // zmieniamy na thisWidget.dom.wrapper bo jest w BaseWidget jest to wrapperElement
     thisWidget.dom.linkDecrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkDecrease);
     thisWidget.dom.linkIncrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkIncrease);
   }
 
-  isValid(value){
-    return !isNaN(value)
-      && value >= settings.amountWidget.defaultMin 
+
+  isValid(value) {    // będzie zwracać prawdę lub fałsz w zależności od kryteriów które ustalimy dla widgetów
+    return !isNaN(value)  // jeśli value jest tekstem to isNaN jest prawdziwa
+      && value >= settings.amountWidget.defaultMin
       && value <= settings.amountWidget.defaultMax;
   }
 
-  /*setValue(value){
-    const thisWidget = this;
-
-    const newValue = parseInt(value);
-
-    //console.log(thisWidget.value, value, newValue, isNaN(newValue));
- 
-    if( thisWidget.value !== newValue && !isNaN(newValue) && value >= settings.amountWidget.defaultMin && value <= settings.amountWidget.defaultMax){
-      thisWidget.value = newValue;
-      thisWidget.dom.input.value = thisWidget.value;
-      thisWidget.announce();
-    } else {
-      thisWidget.dom.input.value = thisWidget.value;
-    }
-  }*/
-
-  renderValue(){
+  renderValue() { // bieżąca wartość widgetu będzie wyświetlona na stronie
     const thisWidget = this;
 
     thisWidget.dom.input.value = thisWidget.value;
   }
 
-  initActions(){
+
+  initActions() {
+
     const thisWidget = this;
 
-    thisWidget.dom.input.addEventListener('change', function(){
+    thisWidget.dom.input.addEventListener('change', function () {
       //thisWidget.setValue(thisWidget.dom.input.value);
-
-      thisWidget.value=thisWidget.dom.input.value;
+      thisWidget.value = thisWidget.dom.input.value;
     });
-
-    thisWidget.dom.linkDecrease.addEventListener('click', function(event){
+    thisWidget.dom.linkDecrease.addEventListener('click', function (event) {
       event.preventDefault();
       thisWidget.setValue(thisWidget.value - 1);
     });
-
-    thisWidget.dom.linkIncrease.addEventListener('click', function(event){
+    thisWidget.dom.linkIncrease.addEventListener('click', function (event) {
       event.preventDefault();
-      thisWidget.setValue(thisWidget.value +1);
+      thisWidget.setValue(thisWidget.value + 1);
     });
   }
-
 }
 
 export default AmountWidget;
